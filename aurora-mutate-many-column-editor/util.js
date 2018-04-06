@@ -72,7 +72,7 @@ export function deSerialize(content) {
   const deSerializedEditors = content.editors.map(e => deSerializeContent(e));
   return {
     n_columns: content.n_columns,
-    right: deSerializedEditors
+    editors: deSerializedEditors
   };
 }
 
@@ -97,20 +97,30 @@ function emptyState() {
 
 export function addColumn(state) {
   state.n_columns += 1;
-  state.editors.push(emptyState());
+  state.editors.push(emptyEditorState());
+}
+
+function lastColumnHasText(state) {
+  return (
+    state.editors[state.editors.length - 1].getCurrentContent().getPlainText()
+      .length > 0
+  );
 }
 
 export function removeColumn(state) {
   if (state.n_columns > 1) {
-    if (
-      window.confirm(
-        "Are you sure you want to delete the right-most column? You will lose any text in this column."
-      )
-    ) {
-      state.n_columns -= 1;
-      state.editors.splice(-1, 1);
-      return true;
+    if (lastColumnHasText(state)) {
+      if (
+        !window.confirm(
+          "Are you sure you want to delete the right-most column? You will lose any text in this column."
+        )
+      ) {
+        return false;
+      }
     }
+    state.n_columns -= 1;
+    state.editors.splice(-1, 1);
+    return true;
   }
   return false;
 }

@@ -10,13 +10,15 @@ import {
 } from "./util";
 import "./style.css";
 
+const MUTATION_NAME = "ManyColumnEditor";
+
 function manyColumnContentView(ContentView, api) {
   return class extends React.Component {
     componentDidUpdate(prevProps) {
       const contentLoaded =
         prevProps.isLoadingContent === true &&
         this.props.isLoadingContent === false &&
-        this.props.note.mutationName === "TwoColumnEditor";
+        this.props.note.mutationName === MUTATION_NAME;
       if (contentLoaded) {
         this.finishedLoadingContent();
       }
@@ -41,15 +43,15 @@ function manyColumnContentView(ContentView, api) {
     handleSimulatedKeyCommand(command, editorState) {
       if (command === "add-column") {
         addColumn(editorState);
-        this.onChange(editorState);
+        this.onChange(editorState, true);
       } else if (command === "remove-column") {
         if (removeColumn(editorState)) {
-          this.onChange(editorState);
+          this.onChange(editorState, true);
         }
       }
     }
 
-    onChange = state => {
+    onChange = (editorState, save) => {
       const serializedContent = serialize(editorState);
       const serializedPreview = serPreview(editorState);
       const searchableText = getSearchableText(editorState);
@@ -58,7 +60,8 @@ function manyColumnContentView(ContentView, api) {
         editorState,
         serializedContent,
         serializedPreview,
-        searchableText
+        searchableText,
+        save
       );
     };
 
@@ -69,20 +72,17 @@ function manyColumnContentView(ContentView, api) {
     };
 
     render() {
-      if (
-        this.props.note &&
-        this.props.note.mutationName === "ManyColumnEditor"
-      ) {
+      if (this.props.note && this.props.note.mutationName === MUTATION_NAME) {
         const { onChange, ...props } = this.props;
-        const editors = this.props.ourEditorState.editors.map(col, index => {
+        const editors = this.props.ourEditorState.editors.map((col, index) => {
           let className = "editor";
           if (index > 0) {
             className = "editor not-first-editor";
           }
           return (
-            <div className={className}>
+            <div className={className} key={"editor-div" + index}>
               <Editor
-                className={"editor" + index}
+                key={"editor" + index}
                 editorState={col}
                 onChange={editorState => {
                   this.onSingleChange(editorState, index);
@@ -108,11 +108,11 @@ window.toolbar.buttons.push({
   icon: "➕",
   command: "add-column",
   hint: "Add a new column to note",
-  noteType: "ManyColumnEditor"
+  noteType: MUTATION_NAME
 });
 window.toolbar.buttons.push({
   icon: "➖",
   command: "remove-column",
   hint: "Remove right-most column in note",
-  noteType: "ManyColumnEditor"
+  noteType: MUTATION_NAME
 });

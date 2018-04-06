@@ -73,7 +73,7 @@ function manyColumnContentView(ContentView, api) {
 
     render() {
       if (this.props.note && this.props.note.mutationName === MUTATION_NAME) {
-        const { onChange, ...props } = this.props;
+        const { onChange, isLoadingContent, ...props } = this.props;
         const editors = this.props.ourEditorState.editors.map((col, index) => {
           let className = "editor";
           if (index > 0) {

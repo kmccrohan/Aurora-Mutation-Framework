@@ -1,0 +1,12 @@
+.editor {
+  flex: 1;
+  padding: 1em;
+}
+
+.not-first-editor {
+  border-left: 1px solid #ded3e2;
+}
+
+.editor-container {
+  display: flex;
+}

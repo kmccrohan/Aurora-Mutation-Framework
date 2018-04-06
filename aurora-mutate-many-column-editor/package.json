@@ -1,15 +1,15 @@
 {
-  "name": "aurora-mutate-nameOfMutation",
+  "name": "aurora-mutate-many-column-editor",
   "version": "1.0.0",
-  "description": "put description here",
+  "description": "Allows you to have many columns in your editor",
   "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "prepublish": "webpack"
   },
-  "author": "put your name here",
-  "keywords": ["aurora", "mutation"],
+  "author": "Kyle McCrohan",
+  "keywords": ["aurora", "mutation", "ManyColumnEditor"],
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.0",

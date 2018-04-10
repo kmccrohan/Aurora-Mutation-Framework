@@ -12423,7 +12423,8 @@ function manyColumnContentView(ContentView, api) {
           var _props = this.props,
               onChange = _props.onChange,
               isLoadingContent = _props.isLoadingContent,
-              props = _objectWithoutProperties(_props, ["onChange", "isLoadingContent"]);
+              ourEditorState = _props.ourEditorState,
+              props = _objectWithoutProperties(_props, ["onChange", "isLoadingContent", "ourEditorState"]);
 
           var Editor = api().Editor;
           var editors = this.props.ourEditorState.editors.map(function (col, index) {
@@ -12433,7 +12434,7 @@ function manyColumnContentView(ContentView, api) {
                 { className: "editor", key: "editor-div" + index },
                 _react2.default.createElement(Editor, _extends({
                   key: "editor" + index,
-                  editorState: col,
+                  ourEditorState: col,
                   onChange: function onChange(editorState) {
                     _this2.onSingleChange(editorState, index);
                   },
@@ -12450,7 +12451,7 @@ function manyColumnContentView(ContentView, api) {
                   key: "editor-div" + index },
                 _react2.default.createElement(Editor, _extends({
                   key: "editor" + index,
-                  editorState: col,
+                  ourEditorState: col,
                   onChange: function onChange(editorState) {
                     _this2.onSingleChange(editorState, index);
                   },

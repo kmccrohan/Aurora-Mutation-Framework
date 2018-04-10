@@ -66,7 +66,12 @@ function manyColumnContentView(ContentView, api) {
 
     render() {
       if (this.props.note && this.props.note.mutationName === MUTATION_NAME) {
-        const { onChange, isLoadingContent, ...props } = this.props;
+        const {
+          onChange,
+          isLoadingContent,
+          ourEditorState,
+          ...props
+        } = this.props;
         const Editor = api().Editor;
         const editors = this.props.ourEditorState.editors.map((col, index) => {
           if (index == 0) {
@@ -74,7 +79,7 @@ function manyColumnContentView(ContentView, api) {
               <div className={"editor"} key={"editor-div" + index}>
                 <Editor
                   key={"editor" + index}
-                  editorState={col}
+                  ourEditorState={col}
                   onChange={editorState => {
                     this.onSingleChange(editorState, index);
                   }}
@@ -92,7 +97,7 @@ function manyColumnContentView(ContentView, api) {
                 key={"editor-div" + index}>
                 <Editor
                   key={"editor" + index}
-                  editorState={col}
+                  ourEditorState={col}
                   onChange={editorState => {
                     this.onSingleChange(editorState, index);
                   }}

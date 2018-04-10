@@ -1,5 +1,5 @@
 import React from "react";
-import { Editor } from "draft-js";
+//import { Editor } from "draft-js";
 import {
   deSerialize,
   serialize,
@@ -15,13 +15,6 @@ const MUTATION_NAME = "ManyColumnEditor";
 function manyColumnContentView(ContentView, api) {
   return class extends React.Component {
     componentDidUpdate(prevProps) {
-      const contentLoaded =
-        prevProps.isLoadingContent === true &&
-        this.props.isLoadingContent === false &&
-        this.props.note.mutationName === MUTATION_NAME;
-      if (contentLoaded) {
-        this.finishedLoadingContent();
-      }
       const simulatedKeyCommand =
         prevProps.simulatedKeyCommand === null &&
         this.props.simulatedKeyCommand !== null;
@@ -74,24 +67,41 @@ function manyColumnContentView(ContentView, api) {
     render() {
       if (this.props.note && this.props.note.mutationName === MUTATION_NAME) {
         const { onChange, isLoadingContent, ...props } = this.props;
+        const Editor = api().Editor;
         const editors = this.props.ourEditorState.editors.map((col, index) => {
-          let className = "editor";
-          if (index > 0) {
-            className = "editor not-first-editor";
+          if (index == 0) {
+            return (
+              <div className={"editor"} key={"editor-div" + index}>
+                <Editor
+                  key={"editor" + index}
+                  editorState={col}
+                  onChange={editorState => {
+                    this.onSingleChange(editorState, index);
+                  }}
+                  placeholder={"Change me!"}
+                  isLoadingContent={isLoadingContent}
+                  finishedLoadingContent={this.finishedLoadingContent}
+                  {...props}
+                />
+              </div>
+            );
+          } else {
+            return (
+              <div
+                className={"editor not-first-editor"}
+                key={"editor-div" + index}>
+                <Editor
+                  key={"editor" + index}
+                  editorState={col}
+                  onChange={editorState => {
+                    this.onSingleChange(editorState, index);
+                  }}
+                  placeholder={"Change me!"}
+                  {...props}
+                />
+              </div>
+            );
           }
-          return (
-            <div className={className} key={"editor-div" + index}>
-              <Editor
-                key={"editor" + index}
-                editorState={col}
-                onChange={editorState => {
-                  this.onSingleChange(editorState, index);
-                }}
-                placeholder={"Change me!"}
-                {...props}
-              />
-            </div>
-          );
         });
         return <div className="editor-container">{editors}</div>;
       }

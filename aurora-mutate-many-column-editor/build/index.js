@@ -11914,7 +11914,7 @@ function manyColumnContentView(ContentView, api) {
             if (index == 0) {
               return _react2.default.createElement(
                 "div",
-                { className: "editor", key: "editor-div" + index },
+                { className: "m-editor", key: "editor-div" + index },
                 _react2.default.createElement(Editor, _extends({
                   key: "editor" + index,
                   ourEditorState: col,
@@ -11930,7 +11930,7 @@ function manyColumnContentView(ContentView, api) {
               return _react2.default.createElement(
                 "div",
                 {
-                  className: "editor not-first-editor",
+                  className: "m-editor m-not-first-editor",
                   key: "editor-div" + index },
                 _react2.default.createElement(Editor, _extends({
                   key: "editor" + index,
@@ -11945,7 +11945,7 @@ function manyColumnContentView(ContentView, api) {
           });
           return _react2.default.createElement(
             "div",
-            { className: "editor-container" },
+            { className: "m-editor-container" },
             editors
           );
         }
@@ -37483,7 +37483,7 @@ exports = module.exports = __webpack_require__(168)(false);
 
 
 // module
-exports.push([module.i, ".editor {\n  flex: 1;\n  padding: 1em;\n}\n\n.not-first-editor {\n  border-left: 1px solid #ded3e2;\n}\n\n.editor-container {\n  display: flex;\n}\n", ""]);
+exports.push([module.i, ".m-editor {\n  flex: 1;\n  padding: 0.25em;\n  flex-basis: 200px;\n  flex-grow: 1;\n  flex-shrink: 0;\n}\n\n.m-not-first-editor {\n  border-left: 1px solid #ded3e2;\n}\n\n.m-editor-container {\n  display: flex;\n  overflow-x: scroll;\n}\n", ""]);
 
 // exports
 

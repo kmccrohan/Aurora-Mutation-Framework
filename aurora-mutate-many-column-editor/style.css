@@ -1,12 +1,16 @@
-.editor {
+.m-editor {
   flex: 1;
-  padding: 1em;
+  padding: 0.25em;
+  flex-basis: 200px;
+  flex-grow: 1;
+  flex-shrink: 0;
 }
 
-.not-first-editor {
+.m-not-first-editor {
   border-left: 1px solid #ded3e2;
 }
 
-.editor-container {
+.m-editor-container {
   display: flex;
+  overflow-x: scroll;
 }

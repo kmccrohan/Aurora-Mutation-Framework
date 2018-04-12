@@ -76,7 +76,7 @@ function manyColumnContentView(ContentView, api) {
         const editors = this.props.ourEditorState.editors.map((col, index) => {
           if (index == 0) {
             return (
-              <div className={"editor"} key={"editor-div" + index}>
+              <div className={"m-editor"} key={"editor-div" + index}>
                 <Editor
                   key={"editor" + index}
                   ourEditorState={col}
@@ -93,7 +93,7 @@ function manyColumnContentView(ContentView, api) {
           } else {
             return (
               <div
-                className={"editor not-first-editor"}
+                className={"m-editor m-not-first-editor"}
                 key={"editor-div" + index}>
                 <Editor
                   key={"editor" + index}
@@ -108,7 +108,7 @@ function manyColumnContentView(ContentView, api) {
             );
           }
         });
-        return <div className="editor-container">{editors}</div>;
+        return <div className="m-editor-container">{editors}</div>;
       }
       return <ContentView {...this.props} />;
     }
